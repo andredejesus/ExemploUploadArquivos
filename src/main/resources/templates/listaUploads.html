@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<title>Upload de arquivos</title>
+
+<!-- BOOTSTRAP -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+<!-- GOOGLE FONTS -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+		<header>
+	
+			<nav class="navbar navbar-light bg-light">
+			  	<a class="navbar-brand h3" href="#">Upload de Arquivos</a>
+			</nav>
+	
+		</header>
+		
+		<main>
+	
+			<section>
+			
+				<div class="card">
+				
+					  <div class="card-body">
+					  
+					  <a role="button" class="btn btn-primary" href="/">Novo upload</a>
+					  
+					  		<div class="alert alert-success mt-4" role="alert" th:if="${not #strings.isEmpty(mensagemSucesso)}">
+							  	<span th:text="${mensagemSucesso}"></span>
+							</div>
+					  
+					  		<table class="table table-default mt-4 text-center">
+					  			
+					  			<thead>
+					  				<tr>
+					  					<th>#</th>
+					  					<th>Imagem</th>
+					  					<th>Arquivo</th>
+					  					<th>Diretório</th>
+					  					<th>Tamanho</th>
+					  					<th>Tipo</th>
+					  					<th>Ação</th>
+					  				</tr>
+					  			</thead>					 
+					  			
+					  			<tbody>
+					  				<tr th:each="upload : ${uploads}">
+					  					<td><span th:text="${upload.id}"></span></td>
+					  					
+					  					<!-- Apresenta a imagem de acordo com o tipo de arquivo -->
+					  					<td th:switch="${upload.fileType}" > 
+					  					
+						  					<a th:href="@{'/download/file/' + ${upload.id} + '/' + ${upload.fileName}}">
+						  						
+						  						<img th:case="'image/jpeg'" th:src="@{'/download/file/' + ${upload.id} + '/' + ${upload.fileName}}" style="width: 60px; height:60px;"/>
+						  						<img th:case="'application/pdf'" src="img/pdf.png" style="width: 60px; height:60px;"/>
+						  						<img th:case="'application/vnd.openxmlformats-officedocument.wordprocessingml.document'" src="img/doc.jpg" style="width: 60px; height:60px;"/>
+						  						<img th:case="'application/zip'" src="img/rar.jpg" style="width: 60px; height:60px;"/>
+						  					
+						  					</a>
+						  					
+					  					</td>
+					  					
+					  					<td><span th:text="${upload.fileName}"></span></td>
+					  					<td><span th:text="${upload.filePath}"></span></td>
+					  					<td><span th:text="${upload.fileSize}"></span></td>
+					  					<td><span th:text="${upload.fileType}"></span></td>
+					  					<td>
+					  					
+					  						<a th:href="@{'/remover/file/' + ${upload.id}}"><span class="material-icons text-danger" >delete_forever</span></a>
+					  					
+					  					</td>
+					  				</tr>
+					  			</tbody>
+					  			
+					  		</table>
+				  		
+						
+					  </div>
+				  
+				</div>
+				
+			</section>
+	
+	</main>
+
+</body>
+</html>
