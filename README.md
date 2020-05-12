@@ -1,4 +1,3 @@
-# ExemploUploadArquivos
 Projeto Construído com Java, Spring Boot, Spring MVC, JPA, Thymeleaf, CSS3, HTML
 
 # Funcionalidade de Upload / Download de arquivos
